@@ -100,6 +100,30 @@
     </div>
 </div>
 
+<!-- SECTION 5: Corsi Block Tapping Test -->
+<div id="section-corsi" class="form-section">
+    <div class="progress-bar">Corsi Test - Round <span id="corsi-round">1</span> of 3</div>
+    <h2>Corsi Block Test</h2>
+    <p id="corsi-instructions" class="instructions">Watch the sequence of blocks flash, then tap them back in the exact same order.</p>
+    
+    <!-- The 3x3 Grid of Blocks -->
+    <div class="corsi-grid" id="corsi-grid-container">
+        <div class="corsi-block" data-id="1" onclick="handleCorsiBlockClick(1)"></div>
+        <div class="corsi-block" data-id="2" onclick="handleCorsiBlockClick(2)"></div>
+        <div class="corsi-block" data-id="3" onclick="handleCorsiBlockClick(3)"></div>
+        <div class="corsi-block" data-id="4" onclick="handleCorsiBlockClick(4)"></div>
+        <div class="corsi-block" data-id="5" onclick="handleCorsiBlockClick(5)"></div>
+        <div class="corsi-block" data-id="6" onclick="handleCorsiBlockClick(6)"></div>
+        <div class="corsi-block" data-id="7" onclick="handleCorsiBlockClick(7)"></div>
+        <div class="corsi-block" data-id="8" onclick="handleCorsiBlockClick(8)"></div>
+        <div class="corsi-block" data-id="9" onclick="handleCorsiBlockClick(9)"></div>
+    </div>
+
+    <!-- Status Button to control the flow -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="button" id="corsi-start-btn" onclick="playCorsiSequence()">Start Sequence</button>
+    </div>
+</div>
             </div>
 
         </form>

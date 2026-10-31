@@ -154,7 +154,13 @@ function submitRotationAnswer(chosenOption) {
     if (currentRotationIndex < rotationQuestions.length) {
         loadRotationQuestion();
     } else {
-        finishMentalRotationTest();
+        function finishMentalRotationTest() {
+    console.log("Mental Rotation Data Collected:", rotationDataLog);
+    // Transition to the Corsi block test section
+    showSection("section-corsi");
+    initCorsiTest();
+}
+
     }
 }
 
@@ -174,4 +180,118 @@ function goToCognitiveTests() {
     }
     showSection("section-cognitive");
     startMentalRotationTest(); // This kicks off the image loading
+}
+// --- CORSI BLOCK TEST VARIABLES & DATA ---
+let corsiRound = 0;
+let corsiSequence = [];
+let userSequence = [];
+let corsiIsFlashing = false;
+const corsiDataLog = []; // Holds AP Research metrics for Corsi
+
+// Pre-defined sequences for your 3 rounds (increasing length)
+const corsiRoundsConfig = [,       // Round 1: Length 3,    // Round 2: Length 4
+    [7, 3, 5, 2, 8]  // Round 3: Length 5
+];
+
+function initCorsiTest() {
+    corsiRound = 0;
+    setupCorsiRound();
+}
+
+function setupCorsiRound() {
+    userSequence = [];
+    corsiIsFlashing = false;
+    document.getElementById("corsi-round").innerText = corsiRound + 1;
+    document.getElementById("corsi-instructions").innerText = "Tap the 'Start Sequence' button below when you are ready to memorize.";
+    document.getElementById("corsi-start-btn").style.display = "inline-block";
+    document.getElementById("corsi-grid-container").style.pointerEvents = "none"; // Lock grid until sequence finishes
+}
+
+// Function to flash the blocks using timeouts
+function playCorsiSequence() {
+    document.getElementById("corsi-start-btn").style.display = "none";
+    document.getElementById("corsi-instructions").innerText = "Watch carefully...";
+    corsiIsFlashing = true;
+    
+    corsiSequence = corsiRoundsConfig[corsiRound];
+    let delay = 500;
+
+    corsiSequence.forEach((blockId, index) => {
+        // Flash block ON
+        setTimeout(() => {
+            const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
+            block.classList.add("flash");
+        }, delay);
+
+        delay += 600; // Time block stays illuminated
+
+        // Flash block OFF
+        setTimeout(() => {
+            const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
+            block.classList.remove("flash");
+            
+            // If this was the last block in the sequence, unlock user input
+            if (index === corsiSequence.length - 1) {
+                setTimeout(() => {
+                    document.getElementById("corsi-instructions").innerText = "Repeat the sequence now!";
+                    document.getElementById("corsi-grid-container").style.pointerEvents = "auto"; // Unlock grid
+                    corsiIsFlashing = false;
+                }, 300);
+            }
+        }, delay);
+
+        delay += 300; // Gap between blocks
+    });
+}
+
+function handleCorsiBlockClick(blockId) {
+    if (corsiIsFlashing) return; // Fail-safe check
+
+    // Visual feedback for user tap
+    const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
+    block.classList.add("user-tap");
+    setTimeout(() => block.classList.remove("user-tap"), 200);
+
+    userSequence.push(blockId);
+
+    // Check if the latest tap matches the sequence
+    const currentTapIndex = userSequence.length - 1;
+    if (userSequence[currentTapIndex] !== corsiSequence[currentTapIndex]) {
+        // Immediate failure routing if they make a mistake mid-sequence
+        endCorsiRound(false);
+        return;
+    }
+
+    // Checked if they successfully completed the whole chain
+    if (userSequence.length === corsiSequence.length) {
+        endCorsiRound(true);
+    }
+}
+
+function endCorsiRound(isCorrect) {
+    // Log metrics
+    corsiDataLog.push({
+        round: corsiRound + 1,
+        sequenceLength: corsiSequence.length,
+        success: isCorrect ? 1 : 0
+    });
+
+    if (isCorrect) {
+        alert("Correct choice! Moving to the next round.");
+    } else {
+        alert("Incorrect sequence.");
+    }
+
+    corsiRound++;
+    if (corsiRound < corsiRoundsConfig.length) {
+        setupCorsiRound();
+    } else {
+        finishCorsiTest();
+    }
+}
+
+function finishCorsiTest() {
+    console.log("Corsi Test Data Collected:", corsiDataLog);
+    alert("Corsi Block test completed! Moving to the final test.");
+    // This will route to your Rhythm Tapping test next
 }

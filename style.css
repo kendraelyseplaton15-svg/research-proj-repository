@@ -127,3 +127,30 @@ button:hover {
     padding: 2px 6px;
     border-radius: 4px;
 }
+/* Corsi Grid Setup */
+.corsi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 320px;
+    margin: 20px auto;
+}
+
+.corsi-block {
+    background-color: #34495e;
+    aspect-ratio: 1 / 1; /* Ensures perfectly square shapes across all device resolutions */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+/* Color state when the script displays the computer path */
+.corsi-block.flash {
+    background-color: #f1c40f !important; /* Vivid Yellow flash */
+    box-shadow: 0 0 15px #f1c40f;
+}
+
+/* Color state when the human taps it */
+.corsi-block.user-tap {
+    background-color: #2ecc71 !important; /* Green feedback click */
+}
