@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Research Cognitive Survey</title>
+    <!-- Links to your CSS file for styling -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="survey-container">
+        <!-- The single form that wraps all questions -->
+        <form id="researchForm">
+            
+            <!-- SECTION 1: Screening Questions -->
+            <div id="section-screening" class="form-section active">
+                <h2>Preliminary Screening</h2>
+                
+                <!-- Q1: Age -->
+                <div class="question-block">
+                    <p>1. How old are you?</p>
+                    <label><input type="radio" name="age" value="under_18" required> Under 18</label><br>
+                    <label><input type="radio" name="age" value="18_or_older"> 18 or older</label>
+                </div>
+
+                <!-- Q2: Musical Instrument Status -->
+                <div class="question-block">
+                    <p>2. Do you play a musical instrument?</p>
+                    <label><input type="radio" name="instrument_status" value="currently_play" required> I currently play at least one instrument</label><br>
+                    <label><input type="radio" name="instrument_status" value="used_to_play"> I used to play an instrument</label><br>
+                    <label><input type="radio" name="instrument_status" value="never_played"> I have never played an instrument</label>
+                </div>
+
+                <button type="button" onclick="evaluateScreening()">Next</button>
+            </div>
+
+            <!-- SECTION 2: Dynamic Follow-up Questions -->
+            <div id="section-followup" class="form-section">
+                <h2>Instrument Details</h2>
+
+                <!-- Conditional Q3A: How long ago (For Past Players) -->
+                <div id="block-past-player" class="question-block hidden">
+                    <p>3. How long ago did you stop playing your instrument?</p>
+                    <label><input type="radio" name="time_since_stopped" value="less_than_year"> Less than a year ago</label><br>
+                    <label><input type="radio" name="time_since_stopped" value="1_to_3_years"> 1 to 3 years ago</label><br>
+                    <label><input type="radio" name="time_since_stopped" value="more_than_3_years"> More than 3 years ago</label>
+                </div>
+
+                <!-- Conditional Q3B: Frequency (For Current Players) -->
+                <div id="block-current-player" class="question-block hidden">
+                    <p>3. How frequently do you play your primary instrument?</p>
+                    <label><input type="radio" name="play_frequency" value="rarely"> Rarely (a few times a month)</label><br>
+                    <label><input type="radio" name="play_frequency" value="weekly"> Weekly (1-3 times a week)</label><br>
+                    <label><input type="radio" name="play_frequency" value="daily"> Daily (or almost every day)</label>
+                </div>
+
+                <!-- Q4: Instrument Type (Shown to BOTH past and current players) -->
+                <div class="question-block">
+                    <p>4. What type of instrument is/was your primary instrument?</p>
+                    <label><input type="radio" name="instrument_type" value="strings" required> Strings (e.g., Guitar, Violin, Bass)</label><br>
+                    <label><input type="radio" name="instrument_type" value="woodwinds"> Woodwinds (e.g., Flute, Clarinet, Saxophone)</label><br>
+                    <label><input type="radio" name="instrument_type" value="brass"> Brass (e.g., Trumpet, Trombone)</label><br>
+                    <label><input type="radio" name="instrument_type" value="percussion"> Percussion / Rhythm (e.g., Drums, Piano)</label><br>
+                    <label><input type="radio" name="instrument_type" value="vocals"> Vocals / Voice</label>
+                </div>
+
+                <button type="button" onclick="goToCognitiveTests()">Proceed to Cognitive Tests</button>
+            </div>
+
+            <!-- SECTION 3: Disqualification Screen -->
+            <div id="section-disqualified" class="form-section">
+                <h2>Thank You</h2>
+                <p>Based on your responses, you do not meet the specific criteria required for this research study. We appreciate your time!</p>
+            </div>
+
+            <!-- SECTION 4: Cognitive Tests Placeholder -->
+            <div id="section-cognitive" class="form-section">
+                <h2>Cognitive Testing Phase</h2>
+                <p>The preliminary survey is complete. Your cognitive tests will begin here.</p>
+                <!-- This is where we will embed the mental rotation, corsi, and rhythm tests next -->
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Links to your JavaScript logic file -->
+    <script src="app.js" defer></script>
+</body>
+</html>
