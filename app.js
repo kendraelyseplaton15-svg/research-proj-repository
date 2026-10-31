@@ -12,7 +12,12 @@ function evaluateScreening() {
 
     // 2. APPLY CRITERIA RULES
     // RULE A: Check age constraint (Example: Change "under_18" if your target is adults, or vice-versa)
-    if (ageGroup.value === "under_18") {
+    if (ageGroup.value === "under_12") {
+        showSection("section-disqualified");
+        return; 
+    }
+
+    if (ageGroup.value === "19_or_older") {
         showSection("section-disqualified");
         return; 
     }

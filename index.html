@@ -23,13 +23,14 @@
                 <!-- Q1: Age -->
                 <div class="question-block">
                     <p>1. How old are you?</p>
-                    <label><input type="radio" name="age" value="under_18" required> Under 18</label><br>
-                    <label><input type="radio" name="age" value="18_or_older"> 18 or older</label>
+                    <label><input type="radio" name="age" value="under_12" required> 12 and younger</label><br>
+                    <label><input type="radio" name="age" value="13_to_18" required> 13-18</label><br>
+                    <label><input type="radio" name="age" value="19_or_older"> 19 or older</label>
                 </div>
 
                 <!-- Q2: Musical Instrument Status -->
                 <div class="question-block">
-                    <p>2. Do you play a musical instrument?</p>
+                    <p>2. Do you play a musical instrument? (If you have played an instrument in the past year, select "I currently play at least one instrument")</p>
                     <label><input type="radio" name="instrument_status" value="currently_play" required> I currently play at least one instrument</label><br>
                     <label><input type="radio" name="instrument_status" value="used_to_play"> I used to play an instrument</label><br>
                     <label><input type="radio" name="instrument_status" value="never_played"> I have never played an instrument</label>
@@ -45,9 +46,9 @@
                 <!-- Conditional Q3A: How long ago (For Past Players) -->
                 <div id="block-past-player" class="question-block hidden">
                     <p>3. How long ago did you stop playing your instrument?</p>
-                    <label><input type="radio" name="time_since_stopped" value="less_than_year"> Less than a year ago</label><br>
-                    <label><input type="radio" name="time_since_stopped" value="1_to_3_years"> 1 to 3 years ago</label><br>
-                    <label><input type="radio" name="time_since_stopped" value="more_than_3_years"> More than 3 years ago</label>
+                    <label><input type="radio" name="time_since_stopped" value="1_to_2_years"> 1-2 years ago</label><br>
+                    <label><input type="radio" name="time_since_stopped" value="3_to_5_years"> 3-5 years ago</label><br>
+                    <label><input type="radio" name="time_since_stopped" value="more_than_5_years"> More than 5 years ago</label>
                 </div>
 
                 <!-- Conditional Q3B: Frequency (For Current Players) -->
@@ -61,11 +62,11 @@
                 <!-- Q4: Instrument Type (Shown to BOTH past and current players) -->
                 <div class="question-block">
                     <p>4. What type of instrument is/was your primary instrument?</p>
-                    <label><input type="radio" name="instrument_type" value="strings" required> Strings (e.g., Guitar, Violin, Bass)</label><br>
-                    <label><input type="radio" name="instrument_type" value="woodwinds"> Woodwinds (e.g., Flute, Clarinet, Saxophone)</label><br>
-                    <label><input type="radio" name="instrument_type" value="brass"> Brass (e.g., Trumpet, Trombone)</label><br>
-                    <label><input type="radio" name="instrument_type" value="percussion"> Percussion / Rhythm (e.g., Drums, Piano)</label><br>
-                    <label><input type="radio" name="instrument_type" value="vocals"> Vocals / Voice</label>
+                    <label><input type="radio" name="instrument_type" value="string" required> String (e.g., Guitar, Violin, Bass)</label><br>
+                    <label><input type="radio" name="instrument_type" value="winds"> Wind (e.g., Flute, Saxophone, Trumpet)</label><br>
+                    <label><input type="radio" name="instrument_type" value="percussion"> Percussion (e.g., Drums, Marimba, Xylophone)</label><br>
+                    <label><input type="radio" name="instrument_type" value="keyboard"> Keyboard (e.g., Piano, Organ, Keyboard)</label><br>
+                    <label><input type="radio" name="instrument_type" value="other"> Other</label>
                 </div>
 
                 <button type="button" onclick="goToCognitiveTests()">Proceed to Cognitive Tests</button>
@@ -74,7 +75,7 @@
             <!-- SECTION 3: Disqualification Screen -->
             <div id="section-disqualified" class="form-section">
                 <h2>Thank You</h2>
-                <p>Based on your responses, you do not meet the specific criteria required for this research study. We appreciate your time!</p>
+                <p>Unfortunately, you do not meet the qualifications for this survey. Nevertheless, thank you for participating?</p>
             </div>
 
             <!-- SECTION 4: Cognitive Tests Placeholder -->
