@@ -55,12 +55,12 @@ function evaluateScreening() {
 // Function to move from follow-up questions to the tests
 function goToCognitiveTests() {
     const form = document.getElementById("researchForm");
-    
-    // HTML5 check to make sure all visible required fields are filled out
     if (!form.checkValidity()) {
         form.reportValidity();
         return;
     }
+    showSection("section-cognitive");
+    startMentalRotationTest(); // This kicks off the image loading
 
     // Transition smoothly to the cognitive section placeholder
     showSection("section-cognitive");
@@ -165,15 +165,7 @@ function submitRotationAnswer(chosenOption) {
 
 // Ensure the screening phase triggers the start of the rotation test
 // Update your older goToCognitiveTests function to look like this:
-function goToCognitiveTests() {
-    const form = document.getElementById("researchForm");
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-    showSection("section-cognitive");
-    startMentalRotationTest(); // This kicks off the image loading
-}
+
 // --- CORSI BLOCK TEST VARIABLES & DATA ---
 let corsiRound = 0;
 let corsiSequence = [];
