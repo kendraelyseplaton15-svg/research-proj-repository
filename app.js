@@ -162,13 +162,6 @@ function submitRotationAnswer(chosenOption) {
 }
 
     }
-}
-
-function finishMentalRotationTest() {
-    console.log("Mental Rotation Data Collected:", rotationDataLog);
-    alert("Mental Rotation test completed! Moving to the next test.");
-    // In the future, this will change screens to your Corsi Block test section
-}
 
 // Ensure the screening phase triggers the start of the rotation test
 // Update your older goToCognitiveTests function to look like this:
