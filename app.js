@@ -371,16 +371,51 @@ function validateConsentAndBegin() {
 
 // Modify your existing submitFinalData() function inside app.js or place this over it:
 function submitFinalData() {
-    // Collect all data elements into one structural bucket
+    // 1. Gather all individual demographic questionnaire responses from the form element
+    const ageGroup = document.querySelector('input[name="age"]:checked')?.value || "N/A";
+    const instrumentStatus = document.querySelector('input[name="instrument_status"]:checked')?.value || "N/A";
+    const instrumentType = document.querySelector('input[name="instrument_type"]:checked')?.value || "N/A";
+    
+    // Capture whichever conditional answer was selected
+    const pastTime = document.querySelector('input[name="time_since_stopped"]:checked')?.value;
+    const currentFreq = document.querySelector('input[name="play_frequency"]:checked')?.value;
+    const followUpAnswer = pastTime || currentFreq || "N/A";
+
+    // 2. Bundle demographic parameters together with our experimental arrays
     const fullDataset = {
+        age: ageGroup,
+        instrument_status: instrumentStatus,
+        followup_answer: followUpAnswer,
+        instrument_type: instrumentType,
         mentalRotation: rotationDataLog,
         corsiBlocks: corsiDataLog,
         rhythmTapping: rhythmDataLog
     };
-    
-    console.log("FINAL FULL DATASET COMPILED FOR EXPORT:", fullDataset);
-    
-    // Transition immediately to the final confirmation screen
-    // (Note: In the next step, we will insert the web service call right here before the screen switch)
-    showSection("section-thankyou");
+
+    // Show a loading text style on the button so users don't double click
+    const submitBtn = document.querySelector("#section-complete button");
+    submitBtn.innerText = "Transmitting Data...";
+    submitBtn.disabled = true;
+
+    // REPLACE THIS URL WITH YOUR ACTUAL GOOGLE APPS SCRIPT WEB APP URL
+    const googleWebAppUrl = "https://script.google.com/macros/s/AKfycbw4XI4AOYMnQkCfyh_UJSYsUOhsWm_W0w-w0K_1BWpzniNiftW27f47I6wC4rqqwfQG/exec";
+
+    // 3. Fire the secure Fetch API pipeline to stringify data directly to the Google Sheet
+    fetch(googleWebAppUrl, {
+        method: "POST",
+        mode: "no-cors", // Crucial bypass modifier to allow cross-origin submissions
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fullDataset)
+    })
+    .then(() => {
+        // Transition seamlessly to the final success window layout
+        showSection("section-thankyou");
+    })
+    .catch(error => {
+        console.error("Data submission failed:", error);
+        alert("An error occurred transmitting data. Please try again.");
+        submitBtn.innerText = "Submit All Responses";
+        submitBtn.disabled = false;
+    });
 }
+
