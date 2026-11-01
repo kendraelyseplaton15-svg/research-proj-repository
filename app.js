@@ -8,33 +8,33 @@ const rhythmDataLog = [];  // Will hold Rhythm Tapping metrics
 // Data Bank for the 5 Mental Rotation questions
 const rotationQuestions = [
     {
-        target: "images/target1.jpg",
-        optionA: "images/option1A.jpg", 
-        optionB: "images/option1B.jpg", 
+        target: "images/target1.png",
+        optionA: "images/option1A.png", 
+        optionB: "images/option1B.png", 
         correctAnswer: "A"
     },
     {
-        target: "images/target2.jpg",
-        optionA: "images/option2A.jpg",
-        optionB: "images/option2B.jpg",
+        target: "images/target2.png",
+        optionA: "images/option2A.png",
+        optionB: "images/option2B.png",
         correctAnswer: "B"
     },
     {
-        target: "images/target3.jpg",
-        optionA: "images/option3A.jpg",
-        optionB: "images/option3B.jpg",
+        target: "images/target3.png",
+        optionA: "images/option3A.png",
+        optionB: "images/option3B.png",
         correctAnswer: "A"
     },
     {
-        target: "images/target4.jpg",
-        optionA: "images/option4A.jpg",
-        optionB: "images/option4B.jpg",
+        target: "images/target4.png",
+        optionA: "images/option4A.png",
+        optionB: "images/option4B.png",
         correctAnswer: "B"
     },
     {
-        target: "images/target5.jpg",
-        optionA: "images/option5A.jpg",
-        optionB: "images/option5B.jpg",
+        target: "images/target5.png",
+        optionA: "images/option5A.png",
+        optionB: "images/option5B.png",
         correctAnswer: "A"
     }
 ];
