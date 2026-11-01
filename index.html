@@ -124,7 +124,7 @@
 <div id="section-rhythm" class="form-section">
     <div class="progress-bar">Final Test: Rhythm Tapping</div>
     <h2>Rhythm Tapping Test</h2>
-    <p id="rhythm-instructions" class="instructions">The green circle will flash at a consistent pace. Try to tap along with the rhythm, even after it disappears.</p>
+    <p id="rhythm-instructions" class="instructions">The green circle will flash at a consistent pace. Copy the tempo as best as you can after it disappears.</p>
     
     <!-- The Visual Metronome Indicator -->
     <div class="metronome-container">
@@ -132,9 +132,10 @@
     </div>
 
     <!-- Large Mobile-Friendly Tapping Pad -->
-    <div id="rhythm-tap-pad" class="tap-pad hidden" ontouchstart="handleRhythmTap(event)" mousedown="handleRhythmTap(event)">
-        TAP HERE TO KEEP THE BEAT
+    <div id="rhythm-tap-pad" class="tap-pad hidden" ontouchstart="handleRhythmTap(event)" onmousedown="handleRhythmTap(event)">
+    TAP HERE TO KEEP THE BEAT
     </div>
+
 
     <div style="text-align: center; margin-top: 20px;">
         <button type="button" id="rhythm-start-btn" onclick="startRhythmTest()">Start Rhythm</button>
@@ -148,11 +149,6 @@
     <button type="button" onclick="submitFinalData()" style="background-color: #3498db;">Submit All Responses</button>
 </div>
 
-
-    <!-- Status Button to control the flow -->
-    <div style="text-align: center; margin-top: 20px;">
-        <button type="button" id="corsi-start-btn" onclick="playCorsiSequence()">Start Sequence</button>
-    </div>
 </div>
             </div>
 
