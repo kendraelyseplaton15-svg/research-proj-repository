@@ -174,8 +174,8 @@ let corsiIsFlashing = false;
 const corsiDataLog = []; // Holds AP Research metrics for Corsi
 
 // Pre-defined sequences for your 3 rounds (increasing length)
-const corsiRoundsConfig = [,       // Round 1: Length 3,    // Round 2: Length 4
-    [7, 3, 5, 2, 8]  // Round 3: Length 5
+const corsiRoundsConfig = [,       // Round 1: Length 3 (Flashes block 2, then 6, then 7),    // Round 2: Length 4 (Flashes blocks 1, 8, 3, 5)
+    [9, 4, 2, 7, 6]  // Round 3: Length 5 (Flashes blocks 9, 4, 2, 7, 6)
 ];
 
 function initCorsiTest() {
