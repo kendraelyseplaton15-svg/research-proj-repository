@@ -52,7 +52,10 @@ function evaluateScreening() {
     showSection("section-followup");
 }
 
-// Function to move from follow-up questions to the tests
+// ==========================================
+// TRANSITION TO TESTING PHASE
+// ==========================================
+
 function goToCognitiveTests() {
     const form = document.getElementById("researchForm");
     if (!form.checkValidity()) {
@@ -61,31 +64,22 @@ function goToCognitiveTests() {
     }
     showSection("section-cognitive");
     startMentalRotationTest(); // This kicks off the image loading
-
-    // Transition smoothly to the cognitive section placeholder
-    showSection("section-cognitive");
 }
 
-// Helper function to handle swapping screen sections cleanly
-function showSection(sectionId) {
-    // Hide every section container on the screen
-    document.querySelectorAll('.form-section').forEach(section => {
-        section.classList.remove('active');
-    });
-    // Display only the requested section
-    document.getElementById(sectionId).classList.add('active');
-}
-// --- MENTAL ROTATION TEST VARIABLES & DATA ---
+// ==========================================
+// MENTAL ROTATION TEST ENGINE
+// ==========================================
+
 let currentRotationIndex = 0;
 let rotationStartTime;
-const rotationDataLog = []; // This array will hold your AP Research data results
+const rotationDataLog = []; // Holds AP Research results for Mental Rotation
 
-// The Data Bank: Define the paths to your images and specify which option is correct
+// Data Bank for the 5 Mental Rotation questions
 const rotationQuestions = [
     {
         target: "images/target1.png",
-        optionA: "images/option1A.png", // Let's say this is the correct rotated one
-        optionB: "images/option1B.png", // This is the distractor/wrong one
+        optionA: "images/option1A.png", 
+        optionB: "images/option1B.png", 
         correctAnswer: "A"
     },
     {
@@ -114,8 +108,6 @@ const rotationQuestions = [
     }
 ];
 
-// Modify your existing goToCognitiveTests function or add this to trigger the start
-// Ensure your older goToCognitiveTests() calls startMentalRotationTest() at the end!
 function startMentalRotationTest() {
     currentRotationIndex = 0;
     loadRotationQuestion();
@@ -124,13 +116,13 @@ function startMentalRotationTest() {
 function loadRotationQuestion() {
     const currentQ = rotationQuestions[currentRotationIndex];
     
-    // Update the progress number and images
+    // Update the progress number and image sources
     document.getElementById("rot-current-q").innerText = currentRotationIndex + 1;
     document.getElementById("rotation-target").src = currentQ.target;
     document.getElementById("rotation-optionA").src = currentQ.optionA;
     document.getElementById("rotation-optionB").src = currentQ.optionB;
     
-    // Start the millisecond timer using performance.now() for high precision
+    // High-precision millisecond timer
     rotationStartTime = performance.now();
 }
 
@@ -139,43 +131,46 @@ function submitRotationAnswer(chosenOption) {
     const reactionTimeMs = Math.round(endTime - rotationStartTime);
     const currentQ = rotationQuestions[currentRotationIndex];
     
-    // Evaluate correctness
+    // Evaluate if choice matches data criteria
     const isCorrect = (chosenOption === currentQ.correctAnswer) ? 1 : 0;
     
-    // Log data metrics for this question
+    // Log metrics
     rotationDataLog.push({
         questionNumber: currentRotationIndex + 1,
         accuracy: isCorrect,
         reactionTime: reactionTimeMs
     });
     
-    // Advance logic
     currentRotationIndex++;
     if (currentRotationIndex < rotationQuestions.length) {
         loadRotationQuestion();
     } else {
-        function finishMentalRotationTest() {
+        finishMentalRotationTest();
+    }
+}
+
+function finishMentalRotationTest() {
     console.log("Mental Rotation Data Collected:", rotationDataLog);
-    // Transition to the Corsi block test section
+    alert("Mental Rotation test completed! Moving to the Corsi Block test.");
+    
+    // Transition to the Corsi block test section container
     showSection("section-corsi");
     initCorsiTest();
 }
 
-    }
+// ==========================================
+// CORSI BLOCK TAPPING TEST ENGINE
+// ==========================================
 
-// Ensure the screening phase triggers the start of the rotation test
-// Update your older goToCognitiveTests function to look like this:
-
-// --- CORSI BLOCK TEST VARIABLES & DATA ---
 let corsiRound = 0;
 let corsiSequence = [];
 let userSequence = [];
 let corsiIsFlashing = false;
 const corsiDataLog = []; // Holds AP Research metrics for Corsi
 
-// Pre-defined sequences for your 3 rounds (increasing length)
-const corsiRoundsConfig = [,       // Round 1: Length 3 (Flashes block 2, then 6, then 7),    // Round 2: Length 4 (Flashes blocks 1, 8, 3, 5)
-    [9, 4, 2, 7, 6]  // Round 3: Length 5 (Flashes blocks 9, 4, 2, 7, 6)
+// Pre-defined sequence routes utilizing your grid block IDs 1 through 9
+const corsiRoundsConfig = [,       // Round 1: Sequence Length 3,    // Round 2: Sequence Length 4
+    [9, 4, 2, 7, 6]  // Round 3: Sequence Length 5
 ];
 
 function initCorsiTest() {
@@ -189,10 +184,9 @@ function setupCorsiRound() {
     document.getElementById("corsi-round").innerText = corsiRound + 1;
     document.getElementById("corsi-instructions").innerText = "Tap the 'Start Sequence' button below when you are ready to memorize.";
     document.getElementById("corsi-start-btn").style.display = "inline-block";
-    document.getElementById("corsi-grid-container").style.pointerEvents = "none"; // Lock grid until sequence finishes
+    document.getElementById("corsi-grid-container").style.pointerEvents = "none"; // Lock interactions during idle state
 }
 
-// Function to flash the blocks using timeouts
 function playCorsiSequence() {
     document.getElementById("corsi-start-btn").style.display = "none";
     document.getElementById("corsi-instructions").innerText = "Watch carefully...";
@@ -202,59 +196,59 @@ function playCorsiSequence() {
     let delay = 500;
 
     corsiSequence.forEach((blockId, index) => {
-        // Flash block ON
+        // Step A: Illuminate block
         setTimeout(() => {
             const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
-            block.classList.add("flash");
+            if (block) block.classList.add("flash");
         }, delay);
 
-        delay += 600; // Time block stays illuminated
+        delay += 600; // Duration block remains lit
 
-        // Flash block OFF
+        // Step B: Extinguish block
         setTimeout(() => {
             const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
-            block.classList.remove("flash");
+            if (block) block.classList.remove("flash");
             
-            // If this was the last block in the sequence, unlock user input
+            // Release inputs to the participant if this is the final block in the current sequence
             if (index === corsiSequence.length - 1) {
                 setTimeout(() => {
                     document.getElementById("corsi-instructions").innerText = "Repeat the sequence now!";
-                    document.getElementById("corsi-grid-container").style.pointerEvents = "auto"; // Unlock grid
+                    document.getElementById("corsi-grid-container").style.pointerEvents = "auto"; // Unlock input tracking
                     corsiIsFlashing = false;
                 }, 300);
             }
         }, delay);
 
-        delay += 300; // Gap between blocks
+        delay += 300; // Inter-stimulus interval gap
     });
 }
 
 function handleCorsiBlockClick(blockId) {
-    if (corsiIsFlashing) return; // Fail-safe check
+    if (corsiIsFlashing) return; // Hard fail-safe protection
 
-    // Visual feedback for user tap
+    // Haptic touch visual mimicry feedback
     const block = document.querySelector(`.corsi-block[data-id="${blockId}"]`);
-    block.classList.add("user-tap");
-    setTimeout(() => block.classList.remove("user-tap"), 200);
+    if (block) {
+        block.classList.add("user-tap");
+        setTimeout(() => block.classList.remove("user-tap"), 200);
+    }
 
     userSequence.push(blockId);
 
-    // Check if the latest tap matches the sequence
+    // Track matching values step-by-step
     const currentTapIndex = userSequence.length - 1;
     if (userSequence[currentTapIndex] !== corsiSequence[currentTapIndex]) {
-        // Immediate failure routing if they make a mistake mid-sequence
         endCorsiRound(false);
         return;
     }
 
-    // Checked if they successfully completed the whole chain
+    // Verify if player successfully finished the chain sequence
     if (userSequence.length === corsiSequence.length) {
         endCorsiRound(true);
     }
 }
 
 function endCorsiRound(isCorrect) {
-    // Log metrics
     corsiDataLog.push({
         round: corsiRound + 1,
         sequenceLength: corsiSequence.length,
@@ -278,6 +272,5 @@ function endCorsiRound(isCorrect) {
 function finishCorsiTest() {
     console.log("Corsi Test Data Collected:", corsiDataLog);
     alert("Corsi Block test completed! Moving to the final test.");
-    // This will route to your Rhythm Tapping test next
-}
+    // In our next step, we will trigger your final Rhythm Tapping setup here
 }
