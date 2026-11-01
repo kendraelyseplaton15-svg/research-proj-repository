@@ -40,7 +40,8 @@ const rotationQuestions = [
 ];
 
 // Pre-defined sequence routes utilizing your grid block IDs 1 through 9
-const corsiRoundsConfig = [,    // Round 1: Sequence Length 3, // Round 2: Sequence Length 4
+const corsiRoundsConfig = [[1, 5, 3],    // Round 1: Sequence Length 3
+    [2, 8, 4, 6], // Round 2: Sequence Length 4
     [9, 4, 2, 7, 6] // Round 3: Sequence Length 5
 ];
 
@@ -173,7 +174,7 @@ function setupCorsiRound() {
     userSequence = [];
     corsiIsFlashing = false;
     document.getElementById("corsi-round").innerText = corsiRound + 1;
-    document.getElementById("corsi-instructions").innerText = "Tap the 'Start Sequence' button below when you are ready to memorize.";
+    document.getElementById("corsi-instructions").innerText = "Watch a grid of blocks light up in a random sequence, then recreate the pattern from memory. Tap the 'Start Sequence' button below when you are ready to memorize.";
     document.getElementById("corsi-start-btn").style.display = "inline-block";
     document.getElementById("corsi-grid-container").style.pointerEvents = "none";
 }
