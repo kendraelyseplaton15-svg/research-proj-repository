@@ -12,9 +12,33 @@
     <div class="survey-container">
         <!-- The single form that wraps all questions -->
         <form id="researchForm">
-            
+            <!-- SECTION 0: Welcome & Informed Consent Form -->
+<div id="section-consent" class="form-section active">
+    <h2>Informed Consent & Study Overview</h2>
+    
+    <div class="consent-box">
+        <p><strong>Study Title:</strong> Spatial-Temporal Performance Among Teenage Musicians</p>
+        <p><strong>Researcher Contact:</strong> Kendra Platon (kendrae.291619@nv.ccsd.net OR kendra.elyse.platon15@gmail.com)</p>
+        <p><strong>AP Course:</strong> AP Research (2026-2027)</p>
+        <hr>
+        <p><strong>Description:</strong> This research project explores the correlations between musical instrument experience and spatial-temporal cognitive performance tasks. If you choose to participate, you will complete a brief demographic survey followed by three short cognitive assessments: a Mental Rotation task, a Corsi Block visual memory game, and a manual Rhythm Tapping trial. The entire session takes approximately 3 to 5 minutes.</p>
+        
+        <p><strong>Voluntary Participation & Confidentiality:</strong> Your participation is completely voluntary, and you may exit the window at any point to withdraw. Absolutely no personal identifying data (such as names, IP addresses, or emails) will be recorded or linked to your responses. All data metrics are compiled anonymously and aggregated solely for computational analysis in this AP Research paper.</p>
+    </div>
+
+    <div class="question-block" style="margin-top: 20px;">
+        <label>
+            <input type="checkbox" id="consent-checkbox" required> 
+            I have read the overview above and voluntarily consent to participate in this study.
+        </label>
+    </div>
+
+    <button type="button" onclick="validateConsentAndBegin()">Begin Survey</button>
+</div>
+
             <!-- SECTION 1: Screening Questions -->
-            <div id="section-screening" class="form-section active">
+             <div id="section-screening" class="form-section">
+
                 <h2>Preliminary Screening</h2>
                 
                 <!-- Q1: Age -->
@@ -32,9 +56,8 @@
                     <label><input type="radio" name="instrument_status" value="used_to_play"> I used to play an instrument</label><br>
                     <label><input type="radio" name="instrument_status" value="never_played"> I have never played an instrument</label>
                 </div>
-
                 <button type="button" onclick="evaluateScreening()">Next</button>
-            </div>
+             </div>
 
             <!-- SECTION 2: Dynamic Follow-up Questions -->
             <div id="section-followup" class="form-section">
@@ -122,7 +145,7 @@
     <div style="text-align: center; margin-top: 20px;">
         <button type="button" id="corsi-start-btn" onclick="playCorsiSequence()">Start Sequence</button>
     </div>
-    
+
 </div>
 
 <!-- SECTION 6: Rhythm Tapping Test -->
@@ -150,9 +173,20 @@
 <!-- SECTION 7: Complete / Submit Screen -->
 <div id="section-complete" class="form-section">
     <h2>All Tests Completed!</h2>
-    <p>Thank you for participating in this AP Research study. Your cognitive metrics have been compiled.</p>
+    <p>Thank you for participating in this AP Research study. Your performance data has been successfully compiled.</p>
+    <p style="color: #7f8c8d; font-size: 14px;">Click the button below to securely and anonymously transmit your responses and results.</p>
     <button type="button" onclick="submitFinalData()" style="background-color: #3498db;">Submit All Responses</button>
 </div>
+
+<!-- SECTION 8: Terminal Thank You Screen -->
+<div id="section-thankyou" class="form-section">
+    <div style="text-align: center; padding: 20px 0;">
+        <div style="font-size: 50px; color: #2ecc71; margin-bottom: 15px;">✓</div>
+        <h2>Thank You!</h2>
+        <p>Your responses have been successfully saved. You may now close out of this webpage safely.</p>
+    </div>
+</div>
+
 
 </div>
             </div>

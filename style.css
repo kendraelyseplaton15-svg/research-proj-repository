@@ -200,3 +200,27 @@ button:hover {
 .tap-pad.pad-active {
     background-color: #1abc9c; /* Bright teal shift upon user click confirmation */
 }
+
+/* Scrollable text box container for consent blocks */
+.consent-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 15px;
+    max-height: 220px;
+    overflow-y: auto; /* Adds a clean inner scrollbar if text flows too long on small phones */
+    font-size: 14px;
+    line-height: 1.5;
+    color: #475569;
+    margin-bottom: 15px;
+}
+
+.consent-box hr {
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 12px 0;
+}
+
+.consent-box strong {
+    color: #1e293b;
+}

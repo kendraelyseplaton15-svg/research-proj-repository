@@ -345,8 +345,26 @@ function processRhythmData() {
     showSection("section-complete");
 }
 
+// ==========================================
+// SECTION 0 & 8: CONSENT & TERMINAL FLOWS
+// ==========================================
+
+function validateConsentAndBegin() {
+    const consentBox = document.getElementById("consent-checkbox");
+    
+    // Strict HTML5 validation check
+    if (!consentBox.checked) {
+        alert("You must read the overview and check the consent box to participate in this study.");
+        return;
+    }
+    
+    // Advance to your preliminary questionnaire questions layout safely
+    showSection("section-screening");
+}
+
+// Modify your existing submitFinalData() function inside app.js or place this over it:
 function submitFinalData() {
-    // This is where all compiled arrays will bundle together 
+    // Collect all data elements into one structural bucket
     const fullDataset = {
         mentalRotation: rotationDataLog,
         corsiBlocks: corsiDataLog,
@@ -354,5 +372,8 @@ function submitFinalData() {
     };
     
     console.log("FINAL FULL DATASET COMPILED FOR EXPORT:", fullDataset);
-    alert("Data compiled! In our next setup, we will configure this button to securely push these data points straight into your data tracking table.");
+    
+    // Transition immediately to the final confirmation screen
+    // (Note: In the next step, we will insert the web service call right here before the screen switch)
+    showSection("section-thankyou");
 }
