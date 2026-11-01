@@ -76,7 +76,7 @@ function evaluateScreening() {
     }
 
     // Rule A: Under 18 gets disqualified
-    if (ageGroup.value === "under_18") {
+    if (ageGroup.value === "under_18" || ageGroup.value === "19_or_older") {
         showSection("section-disqualified");
         return; 
     }
