@@ -111,8 +111,15 @@ function goToCognitiveTests() {
         form.reportValidity();
         return;
     }
+    // Route to the new instructions layout screen instead of kicking off the images instantly
+    showSection("section-transition"); 
+}
+
+function startCognitivePhase() {
+    // Bring up the actual Mental Rotation module card container
     showSection("section-cognitive");
-    startMentalRotationTest();
+    // Start the image question data engine sequence loops
+    startMentalRotationTest(); 
 }
 
 // ==========================================
