@@ -258,5 +258,101 @@ function endCorsiRound(isCorrect) {
 function finishCorsiTest() {
     console.log("Corsi Test Data Collected:", corsiDataLog);
     alert("Corsi Block test completed! Moving to the final test.");
+    showSection("section-rhythm");
     // Rhythm test initiation hooks will be inserted here next
+}
+
+// ==========================================
+// SECTION 6: RHYTHM TAPPING ENGINE
+// ==========================================
+const targetInterval = 600; // 100 BPM translates to exactly 600ms per beat
+let flashCount = 0;
+let flashIntervalId = null;
+let userTapTimestamps = [];
+const maxRequiredTaps = 10;
+
+function startRhythmTest() {
+    document.getElementById("rhythm-start-btn").style.display = "none";
+    document.getElementById("rhythm-instructions").innerText = "Internalizing rhythm... count the flashes.";
+    
+    flashCount = 0;
+    userTapTimestamps = [];
+    
+    // Start visual metronome loop running every 600ms (100 BPM)
+    flashIntervalId = setInterval(executeVisualFlash, targetInterval);
+}
+
+function executeVisualFlash() {
+    flashCount++;
+    const visualCue = document.getElementById("rhythm-visual-cue");
+    
+    // Trigger visual illumination flash
+    visualCue.classList.add("lit");
+    setTimeout(() => {
+        visualCue.classList.remove("lit");
+    }, 150); // Flash stays on screen for 150ms
+
+    // Once it has flashed exactly 8 times, terminate the guide phase
+    if (flashCount >= 8) {
+        clearInterval(flashIntervalId);
+        
+        // Transition immediately to Continuation Phase
+        setTimeout(() => {
+            document.getElementById("rhythm-instructions").innerText = "START TAPPING! Keep that exact same speed for 10 counts.";
+            visualCue.style.display = "none"; // Hide metronome entirely so they rely purely on mental memory
+            document.getElementById("rhythm-tap-pad").classList.remove("hidden"); // Reveal big tapping pad
+        }, targetInterval);
+    }
+}
+
+function handleRhythmTap(event) {
+    // Prevent double-triggering on mobile screens that recognize both touch and click events
+    event.preventDefault(); 
+    
+    const tapTime = performance.now();
+    
+    // Quick haptic-style color flicker for user confirmation
+    const pad = document.getElementById("rhythm-tap-pad");
+    pad.classList.add("pad-active");
+    setTimeout(() => pad.classList.remove("pad-active"), 80);
+
+    userTapTimestamps.push(tapTime);
+    
+    // Keep user updated on progress count
+    document.getElementById("rhythm-instructions").innerText = `Taps recorded: ${userTapTimestamps.length} / ${maxRequiredTaps}`;
+
+    if (userTapTimestamps.length >= maxRequiredTaps) {
+        processRhythmData();
+    }
+}
+
+function processRhythmData() {
+    // Calculate variations between consecutive taps
+    // Tap 2 time minus Tap 1 time = user's actual interval speed
+    for (let i = 1; i < userTapTimestamps.length; i++) {
+        const actualInterval = userTapTimestamps[i] - userTapTimestamps[i-1];
+        const varianceMs = actualInterval - targetInterval; // Negative = too fast, Positive = too slow
+        
+        rhythmDataLog.push({
+            tapIndex: i,
+            actualIntervalMs: Math.round(actualInterval),
+            deviationFromTargetMs: Math.round(varianceMs)
+        });
+    }
+
+    console.log("Rhythm Test Data Collected:", rhythmDataLog);
+    alert("Rhythm Test complete!");
+    showSection("section-complete");
+}
+
+function submitFinalData() {
+    // This is where all compiled arrays will bundle together 
+    const fullDataset = {
+        mentalRotation: rotationDataLog,
+        corsiBlocks: corsiDataLog,
+        rhythmTapping: rhythmDataLog
+    };
+    
+    console.log("FINAL FULL DATASET COMPILED FOR EXPORT:", fullDataset);
+    alert("Data compiled! In our next setup, we will configure this button to securely push these data points straight into your data tracking table.");
 }

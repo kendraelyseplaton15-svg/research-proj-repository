@@ -119,6 +119,35 @@
         <div class="corsi-block" data-id="9" onclick="handleCorsiBlockClick(9)"></div>
     </div>
 
+<!-- SECTION 6: Rhythm Tapping Test -->
+<div id="section-rhythm" class="form-section">
+    <div class="progress-bar">Final Test: Rhythm Tapping</div>
+    <h2>Rhythm Tapping Test</h2>
+    <p id="rhythm-instructions" class="instructions">Watch the green circle flash to internalize the rhythm. Do not tap yet!</p>
+    
+    <!-- The Visual Metronome Indicator -->
+    <div class="metronome-container">
+        <div id="rhythm-visual-cue" class="visual-cue"></div>
+    </div>
+
+    <!-- Large Mobile-Friendly Tapping Pad -->
+    <div id="rhythm-tap-pad" class="tap-pad hidden" ontouchstart="handleRhythmTap(event)" mousedown="handleRhythmTap(event)">
+        TAP HERE TO KEEP THE BEAT
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="button" id="rhythm-start-btn" onclick="startRhythmTest()">Start Rhythm</button>
+    </div>
+</div>
+
+<!-- SECTION 7: Complete / Submit Screen -->
+<div id="section-complete" class="form-section">
+    <h2>All Tests Completed!</h2>
+    <p>Thank you for participating in this AP Research study. Your cognitive metrics have been compiled.</p>
+    <button type="button" onclick="submitFinalData()" style="background-color: #3498db;">Submit All Responses</button>
+</div>
+
+
     <!-- Status Button to control the flow -->
     <div style="text-align: center; margin-top: 20px;">
         <button type="button" id="corsi-start-btn" onclick="playCorsiSequence()">Start Sequence</button>

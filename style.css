@@ -154,3 +154,49 @@ button:hover {
 .corsi-block.user-tap {
     background-color: #2ecc71 !important; /* Green feedback click */
 }
+
+/* Metronome Visual Track */
+.metronome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.visual-cue {
+    width: 60px;
+    height: 60px;
+    background-color: #e2e8f0; /* Default dull gray state */
+    border-radius: 50%;
+    transition: background-color 0.05s ease;
+}
+
+/* State when the loop turns the circle on */
+.visual-cue.lit {
+    background-color: #2ecc71 !important; /* Vibrant green flash pulse */
+    box-shadow: 0 0 20px #2ecc71;
+}
+
+/* Giant Mobile Tapping Target */
+.tap-pad {
+    width: 100%;
+    height: 180px;
+    background-color: #34495e;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none; /* Prevents mobile browser from accidentally selecting text on fast taps */
+    text-align: center;
+    transition: background-color 0.05s ease;
+}
+
+.tap-pad.pad-active {
+    background-color: #1abc9c; /* Bright teal shift upon user click confirmation */
+}
